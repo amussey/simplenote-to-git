@@ -42,14 +42,14 @@ echo "Checking if there is currently a repo in the notes directory"
 if [ -d notes/.git ]; then
     # This repo currently exists.
     cd notes
-    git pull origin $git_branch
+    git pull origin $git_branch --no-rebase
     cd ..
 else
     # We need to check out this repo
     cd notes
     git init
     git remote add origin $git_repo
-    git pull origin $git_branch
+    git pull origin $git_branch --no-rebase
     cd ..
 fi
 
@@ -60,9 +60,10 @@ touch notes/.last_update
 
 echo "Running the downloader script:"
 if [ ! -d env ] ; then
-    virtualenv env
+    python3 -m venv env
 fi
 source env/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
 python download.py "$simplenote_username" "$simplenote_password"
 
