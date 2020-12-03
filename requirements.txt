@@ -1,2 +1,1 @@
-simplenote==0.2.0
-wsgiref==0.1.2
+simplenote==2.1.4
